@@ -84,7 +84,45 @@ if PPL = 10 : ![image](https://github.com/user-attachments/assets/5c0ed835-ab43-
 
 ![image](https://github.com/user-attachments/assets/b3c78be8-1802-4452-9c78-f5dc63c9540e)  
 ***
-Bag of 
+**Bag of Words** : 단어의 순서는 고려하지 않고, 단어의 출현 빈도에만 집중하는 텍스트의 수치화 표현방법.  
+과정 1. 각 단어에 고유한 정수 인덱스 부여.  
+과정 2. 각 인덱스의 위치에 단어 토큰의 등장 횟수를 기록한 벡터를 만듬.  
+ - BoW는 주로 어떤 단어가 얼마나 등장했는지를 기준으로 문서가 어떤 성격의 문서인지를 판단하는 작업에 쓰인다. ex) 분류 or 문서 간 유사도
+
+**Document-Term Matrix(DTM)** 
+문서단어행렬 : 다수의 문서에서 등장하는 각 단어들의 빈도를 행렬로 표현한 것.  
+BoW를 다수의 문서에 대해 행렬로 표현한 것이다.  
+![image](https://github.com/user-attachments/assets/9edfa548-04ee-41d3-96f0-0856c0c66888)  
+
+DTM의 한계 : 
+ - 희소 표현의 문제 : 저렇게 원-핫 벡터로 표현할 시 단어 집합의 크기가 벡터의 차원이 된다는 문제가 생긴다.
+불필요한 데이터가 많다는 말이다. 그래서 구두점, 불용어 제거 등의 정규화를 통해 단어 집합의 크기를 줄여야 함.
+ - 단순 빈도 수 기반 접근 : 단순히 많은 단어가 겹친다고 해서 유사하다고 하기 힘들다.
+   ex) the 같은 불용어가 많이 겹쳐봤자 의미가 없다.
+   -> 그래서 각 단어의 중요도를 계산해야 한다.
+
+**Term Frequency-Inverse Document Frequency(TF-IDF)** : 우선 DTM을 만들고, TF-IDF 가중치 부여.  
+tf(d,t) : 문서 d에서 단어 t의 등장 횟수.  
+df(t) : 특정 단어 t가 등장한 문서의 수.  
+idf(t) : ![image](https://github.com/user-attachments/assets/617a2ad0-2cd1-4a23-abe0-f3c39dbad5e7)  
+ - 분모 0 방지, 너무 급격하게 커지는 것 방지.
+최종 TD-IDF 값 : tf값 x idf값.
+
+TD-IDF는 모든 문서에서 자주 등장하는 단어는 중요도가 낮다고 판단하며, 특정 문서에서만 자주 등장하는 단어가 중요도가 높다고 판단함.  
+
+**코사인 유사도(Cosine Similarity)**  
+방향이 일치하면 1, 점점 방향이 달라져서 반대가 되면 -1.  
+![image](https://github.com/user-attachments/assets/7048fcf0-4cf6-4e47-968f-1591db1f0824)  
+ - A와 B는 DTM이나 TF-IDF 행렬이 된다.
+ - 코사인 유사도는 벡터의 길이가 아니라 방향(문서 패턴)에 초점을 두므로 문서의 길이가 다른 상황에서 비교적 공정한 비교를 할 수 있게 해줌.
+
+***  
+
+
+
+
+
+
 
 
 
